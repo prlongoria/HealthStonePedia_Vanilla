@@ -1,7 +1,7 @@
 <?php
     namespace App;
     
-    use App\controllers\StonesController;  //No entiendo porqué me obliga a poner esta ruta cuando en realidad es use App\Controllers\StonesController
+    use App\controllers\StonesController;  //Llamo al archivo del controlador
     $controller = new StonesController();   //Instancio la clase StonesController
    
     

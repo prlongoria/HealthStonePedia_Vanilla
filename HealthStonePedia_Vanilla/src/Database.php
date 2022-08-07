@@ -1,6 +1,6 @@
 <?php
     namespace App;
-    use PDO; //librería que me facilita los accesos, abre le puene, es decir, la conexión con DB
+    use PDO; //librería que me facilita los accesos, abre el puente, es decir, la conexión con DB
     use PDOException;    //son las dos librerías que voy a usar
 
     class Database {

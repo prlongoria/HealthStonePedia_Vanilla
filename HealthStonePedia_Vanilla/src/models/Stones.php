@@ -40,8 +40,40 @@ class Stones {
             $stoneItem = new Stones($stone["id"], $stone["name"], $stone["attributes"], $stone["healing"], $stone["position"], $stone["color"]);
             array_push($stoneList, $stoneItem);   //mete en el array vacío los item que le he mandado arriba
         }
-        return $stoneList;  //para que haga lo que le pida cuando llamo a la función all
+        return $stoneList;  //para que cuando llamo a la función all, me traiga el nuevo array con los datos de la bbdd que le he mandado 
     }
     
+    public function getID(){
+        return $this->id;
+    }
+    public function getName(){
+        return $this->name;
+    }
+    public function getAttributes(){
+        return $this->attributes;
+    }
+    public function getHealing(){
+        return $this->healing;
+    }
+    public function getPosition(){
+        return $this->position;
+    }
+    public function getColor(){
+        return $this->color;
+    }
+    
+    public function findById($id) {
+        $query = $this->database->mysql->query("SELECT * FROM `{$this->table}` WHERE `id`={$id}");
+        $result = $query->fetchAll();
+        return new Stones($result[0]["id"], $result[0]["name"], $result[0]["attributes"], $result[0]["healing"], $result[0]["position"], $result[0]["color"]);
+    }
+
+    public function destroy() {
+        $query = $this->database->mysql->query("DELETE FROM `{$this->table}`WHERE `{$this->table}`.`id` ={$this->id}");
+    }
+
+    public function save(){
+        $this->database->mysql->query("INSERT INTO `{$this->table}`(`name`, `attributes`) VALUES  ('$this->name', '$this->attributes');");
+    }
 
 }
