@@ -73,7 +73,19 @@ class Stones {
     }
 
     public function save(){
-        $this->database->mysql->query("INSERT INTO `{$this->table}`(`name`, `attributes`) VALUES  ('$this->name', '$this->attributes');");
+        $this->database->mysql->query("INSERT INTO `{$this->table}`(`name`, `attributes`, `healing`, `position`, `color`) VALUES  ('$this->name', '$this->attributes', '$this->healing', '$this->position', '$this->color');");
+    }
+
+    public function rename($name, $attributes, $healing, $position, $color) {
+        $this->name=$name;
+        $this->attributes=$attributes;
+        $this->healing=$healing;
+        $this->position=$position;
+        $this->color=$color;
+    }
+
+    public function update() {
+        $this->database->mysql->query("UPDATE `{$this->table}` SET `name`='{$this->name}', `attributes`= '{$this->attributes}', `healing`='{$this->healing}', `position`= '{$this->position}', `color`='{$this->color}' WHERE `Id` = '{$this->id}'");
     }
 
 }

@@ -26,6 +26,10 @@ class StonesController {
             $this->edit($_GET["id"]);
             return;
         }
+        if (isset($_GET["action"]) && ($_GET["action"] == "update")) {
+            $this-> update($_POST, $_GET["id"]);
+            return;
+        }
 
         $this -> index();  //pongo this para que busque a index() dentro de la clase StonesController, lo automatizo con este constructor, porque no quiero que se pare en el cotrolador.Cada vez que hago un new StonesController lo que ejecuta es al contructor, no a la función index, a esta la ejecuta el constructor
     }
@@ -50,7 +54,7 @@ class StonesController {
     }
 
     public function store (array $request) {
-        $newStone = new Stones(null, $request["name"], $request ["attributes"]);
+        $newStone = new Stones(null, $request["name"], $request ["attributes"], $request["healing"], $request ["position"], $request["color"]);
         $newStone->save();
         $this->index();
     }
@@ -58,10 +62,17 @@ class StonesController {
     public function edit ($id) {
         $stoneHelper = new Stones();
         $stone = $stoneHelper->findById($id);
-        new View("editStone", ["coder"=>$stone]);
+        new View("editStone", ["stone"=>$stone]);
         
-        $this->index();
+        // $this->index();
     }
 
-    
+    public function update (array $request, $id) {
+        $stoneHelper = new Stones();
+        $stone = $stoneHelper->findById($id);
+        $stone->rename($request["name"], $request ["attributes"], $request["healing"], $request ["position"], $request["color"]);
+        $stone->update();
+
+        $this->index();
+    }
 }
